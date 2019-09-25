@@ -66,34 +66,32 @@ Then you can install it calling the pip tool with the current ec3 directory::
     sudo pip install ./ec3
 
 
-Basic example with Amazon EC2
------------------------------
+Basic example with Fogbow
+--------------------------
 
-First create a file ``auth.txt`` with a single line like this::
+First create a file ``auth.dat`` with valid credentials to access Fogbow and also create an account for IM::
 
-   id = provider ; type = EC2 ; username = <<Access Key ID>> ; password = <<Secret Access Key>>
+   id = fogbow ; type = FogBow ; host = https://services-atm-prod.lsd.ufcg.edu.br/fns; username = <<your user>> ; password = <<your password>>;  domain = LSD
 
-Replace ``<<Access Key ID>>`` and ``<<Secret Access Key>>`` with the corresponding values
-for the AWS account where the cluster will be deployed. It is safer to use the credentials
-of an IAM user created within your AWS account.
+Replace ``<<your user>>`` and ``<<your password>>`` with the corresponding values
+for the Fogbow account where the cluster will be deployed. 
 
 This file is the authorization file (see `Authorization file`_), and can have more than one set of credentials.
 
-The next command deploys a `TORQUE`_ cluster based on an `Ubuntu`_ image::
+The next command deploys a `Kubernetes`_ cluster based on an `Ubuntu`_ image::
 
-   $ ec3 launch mycluster torque ubuntu-ec2 -a auth.txt -y
-   WARNING: you are not using a secure connection and this can compromise the secrecy of the passwords and private keys available in the authorization file.
+   $ ec3 launch mycluster kubernetes ubuntu-fbw -a auth.dat -y
    Creating infrastructure
-   Infrastructure successfully created with ID: 60
+   Infrastructure successfully created with ID: 14f6eb82-df9d-11e9-b45a-726c61f3e440
       ▄▟▙▄¨        Front-end state: running, IP: 132.43.105.28
 
 If you deployed a local `IM`_ server, use the next command instead::
 
-   $ ec3 launch mycluster torque ubuntu-ec2 -a auth.txt -u http://localhost:8899
+   $ ec3 launch mycluster kubernetes ubuntu-fbw -a auth.dat -u http://localhost:8899
 
 This can take several minutes.
 
-Bear in mind that you have to specify a resource manager (like ``torque`` in our example) in addition to the images that you want to deploy (e.g. ``ubuntu-ec2``). For more information about this check the `templates documentation`_.
+Bear in mind that you have to specify a resource manager (like ``kubernetes`` in our example) in addition to the images that you want to deploy (e.g. ``ubuntu-fbw``). For more information about this check the `templates documentation`_.
 
 You can show basic information about the deployed clusters by executing::
 
@@ -105,14 +103,11 @@ You can show basic information about the deployed clusters by executing::
 Once the cluster has been deployed, open a ssh session to the front-end (you may need to install the ``sshpass`` library)::
 
    $ ec3 ssh mycluster
-   Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-24-generic x86_64)
+   Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-159-generic x86_64)
    Documentation:  https://help.ubuntu.com/
-   ubuntu@torqueserver:~$
+   fogbow@kubeserver:~$
 
 You may use the cluster as usual, depending on the LRMS.
-For Torque, you can decide to submit a couple of jobs using qsub, to test elasticity in the cluster::
-
-   $ for i in 1 2; do echo "/bin/sleep 50" | qsub; done
 
 Notice that CLUES will intercept the jobs submited to the LRMS to deploy additional working nodes if needed.
 This might result in a customizable (180 seconds by default) blocking delay when submitting jobs when no additional working nodes are available.
