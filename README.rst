@@ -72,6 +72,7 @@ Basic example with Fogbow
 First create a file ``auth.dat`` with valid credentials to access Fogbow and also create an account for IM::
 
    id = fogbow ; type = FogBow ; host = https://services-atm-prod.lsd.ufcg.edu.br/fns; username = <<your user>> ; password = <<your password>>;  domain = LSD
+   type = InfrastructureManager; username = <<your user>>; password = <<your password>>
 
 Replace ``<<your user>>`` and ``<<your password>>`` with the corresponding values
 for the Fogbow account where the cluster will be deployed. 
