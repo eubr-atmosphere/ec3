@@ -57,9 +57,9 @@ Then you only have to call the install command of the pip tool with the `ec3-cli
 	
     sudo pip install ec3-cli
 
-You can also download the last `ec3` version from `this <https://github.com/grycap/ec3>`_ git repository::
+You can also download the last `ec3` version from `this <https://github.com/eubr-atmosphere/ec3.git>`_ git repository::
 
-   git clone https://github.com/grycap/ec3
+   git clone https://github.com/eubr-atmosphere/ec3.git
 
 Then you can install it calling the pip tool with the current ec3 directory::
 	
