@@ -21,13 +21,13 @@ configure vallum (
         version: master
 
     - name: deploy Hadoop master
-      command: kubectl create -f /var/tmp/vallum/hadoop-master.yaml
+      command: kubectl apply -f /var/tmp/vallum/hadoop-master.yaml
 
     - name: deploy Hadoop worker
-      command: kubectl create -f /var/tmp/vallum/hadoop-worker.yaml
+      command: kubectl apply -f /var/tmp/vallum/hadoop-worker.yaml
 
     - name: deploy Vallum
-      command: kubectl create -f /var/tmp/vallum/vallum.yaml
+      command: kubectl apply -f /var/tmp/vallum/vallum.yaml
 @end
 )
 
